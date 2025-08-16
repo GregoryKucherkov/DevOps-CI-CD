@@ -1,0 +1,21 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Virtual environment
+env/
+.env
+
+# Git
+.git
+.gitignore
+
+# Logs
+*.log
+
+# IDEs
+.vscode/
+.idea/
+
+# Large files that you will mount instead
+model/
