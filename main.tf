@@ -3,7 +3,7 @@ resource "random_id" "suffix" {
 }
 
 module "s3_backend" {
-    source      = "/modules/s3-backend"
+    source      = "./modules/s3-backend"
     bucket_name = "terraform-state-bucket-${random_id.suffix.hex}"
     table_name  = "terraform-locks"
 }

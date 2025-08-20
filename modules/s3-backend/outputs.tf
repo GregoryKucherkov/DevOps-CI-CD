@@ -4,7 +4,7 @@ output "s3_bucket_name" {
   
 }
 
-output "DynamoDB_table_name" {
+output "dynamodb_table_name" {
     description = "Table name in  DynamoDB for locking states"
     value = aws_dynamodb_table.terraform_locks.name
   
