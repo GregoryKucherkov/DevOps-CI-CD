@@ -1,0 +1,49 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfvars.json
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+crash.log
+*.plan
+
+# Local environment / CLI configs
+.terraformrc
+terraform.rc
+
+
+# Helm
+*.tgz
+*.local.values.yaml
+helm-debug/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+.env
+.env.*
+
+# IDEs / Editors
+.vscode/
+.idea/
+*.code-workspace
+.project
+*.tmproj
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Backup files
+*.bak
+*.swp
+*~
