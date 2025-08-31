@@ -50,8 +50,6 @@ module "eks" {
   private_subnets            = module.vpc.private_subnets
   ebs_csi_driver_irsa_arn    = module.ebs_csi_driver_irsa.iam_role_arn
 
-
-
   tags                       = var.tags
 }
 
@@ -74,7 +72,7 @@ module "ebs_csi_driver_irsa" {
 
   oidc_providers = {
     main = {
-    #   provider_arn               = module.eks.oidc_provider_arn
+      # provider_arn               = module.eks.oidc_provider_arn
       provider_arn               = data.aws_iam_openid_connect_provider.hw7.arn
       namespace_service_accounts = ["kube-system:ebs-csi-controller-sa"]
       

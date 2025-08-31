@@ -109,24 +109,27 @@ tolerations: []
 
 affinity: {}
 
-# postgresql:
-#   persistence:
-#     enabled: true
-#     storageClass: gp2-csi
-#     size: 2Gi
+# storageClass:
+#   create: true
+#   name: "ebs-sc-gp2"
+#   isDefault: true
+#   volumeBindingMode: "Immediate"
+#   reclaimPolicy: "Delete"
+#   parameters:
+#     type: "gp2"
+#     fsType: "ext4"
+#     encrypted: "false"
 
 postgresql:
   primary:
     persistence:
       enabled: true
-      storageClass: gp2-csi
+      storageClass: ebs-sc-gp3
       size: 2Gi
 
 
-
-
 config:
-    POSTGRES_HOST: db
+    POSTGRES_HOST: django-app-postgresql
     POSTGRES_PORT: 5432
     POSTGRES_USER: django_user
     POSTGRES_DB: django_db

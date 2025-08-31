@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: django-app-postgresql-0
+  name: django-app-pvc
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
       storage: 2Gi
-  storageClassName: gp2-csi
+  storageClassName: ebs-sc-gp3
