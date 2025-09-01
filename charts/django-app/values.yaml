@@ -111,12 +111,12 @@ affinity: {}
 
 # storageClass:
 #   create: true
-#   name: "ebs-sc-gp2"
+#   name: "ebs-sc-gp3"
 #   isDefault: true
 #   volumeBindingMode: "Immediate"
 #   reclaimPolicy: "Delete"
 #   parameters:
-#     type: "gp2"
+#     type: "gp3"
 #     fsType: "ext4"
 #     encrypted: "false"
 

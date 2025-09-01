@@ -29,20 +29,6 @@ module "eks" {
             most_recent = true
             resolve_conflict = "OVERWRITE"
         }
-        # need IAM role
-        aws-ebs-csi-driver = {
-            most_recent = true
-            resolve_conflict = "OVERWRITE"
-            preserve_on_delete = false
-            service_account_role_arn = var.ebs_csi_driver_irsa_arn
-
-
-            # pod_identity_association = [{
-            #     service_account = "ebs-csi-controller-sa"
-            #     namespace = "kube-system"
-            #     role_arn = var.ebs_csi_driver_irsa_arn 
-            # }] 
-        }
 
     }
 

@@ -22,10 +22,4 @@ variable "tags" {
   description = "A map of tags to assign to the resources."
   type        = map(string)
   default     = {}
-
-}
-
-variable "ebs_csi_driver_irsa_arn" {
-  type        = string
-  description = "ARN of the EBS CSI IRSA role"
 }

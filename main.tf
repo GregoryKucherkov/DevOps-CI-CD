@@ -48,37 +48,39 @@ module "eks" {
   vpc_id                     = module.vpc.vpc_id
   public_subnets             = module.vpc.public_subnets
   private_subnets            = module.vpc.private_subnets
-  ebs_csi_driver_irsa_arn    = module.ebs_csi_driver_irsa.iam_role_arn
 
   tags                       = var.tags
 }
 
-data "aws_eks_cluster" "hw7" {
-  name = "hw_7_eks"
-}
-
-data "aws_iam_openid_connect_provider" "hw7" {
-  url = data.aws_eks_cluster.hw7.identity[0].oidc[0].issuer
-}
 
 
-
+# IAM role for EBS CSI driver
 module "ebs_csi_driver_irsa" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
   version = "~> 5.0"
 
-  role_name_prefix = "AmazonEKS_EBS_CSI_Driver"
+  role_name_prefix      = "AmazonEKS_EBS_CSI_Driver"
   attach_ebs_csi_policy = true
 
   oidc_providers = {
     main = {
-      # provider_arn               = module.eks.oidc_provider_arn
-      provider_arn               = data.aws_iam_openid_connect_provider.hw7.arn
+      provider_arn               = module.eks.oidc_provider_arn
       namespace_service_accounts = ["kube-system:ebs-csi-controller-sa"]
-      
     }
   }
- 
+}
+
+# EBS CSI driver add-on
+resource "aws_eks_addon" "ebs_csi_driver" {
+  cluster_name                       = module.eks.cluster_name
+  addon_name                         = "aws-ebs-csi-driver"
+  resolve_conflicts_on_create        = "OVERWRITE"
+  service_account_role_arn           = module.ebs_csi_driver_irsa.iam_role_arn
+
+  depends_on = [
+    module.eks,
+    module.ebs_csi_driver_irsa
+  ]
 }
 
 
