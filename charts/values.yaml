@@ -123,9 +123,9 @@ affinity: {}
 postgresql:
   primary:
     persistence:
-      enabled: false
-    #   storageClass: ebs-sc-gp3
-    #   size: 2Gi
+      enabled: true
+      storageClass: ebs-sc-gp3
+      size: 2Gi
 
 
 config:
