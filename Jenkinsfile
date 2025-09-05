@@ -34,8 +34,8 @@ spec:
         container('kaniko') {
           sh '''
             /kaniko/executor \\
-              --context `pwd` \\
-              --dockerfile `pwd`/Dockerfile \\
+              --context `pwd`/django-app-src \\
+              --dockerfile `pwd`/django-app-src/Dockerfile \\
               --destination=$ECR_REGISTRY/$IMAGE_NAME:$IMAGE_TAG \\
               --cache=true \\
               --insecure \\
@@ -52,6 +52,7 @@ spec:
               git clone https://${github_user}:${github_pat}@github.com/${github_user}/devops.git
               git checkout -b lesson-9
               cd devops/charts/django-app
+              sed -i "s|repository:.*|repository: $ECR_REGISTRY/$IMAGE_NAME|" values.yaml
               sed -i "s/tag: .*/tag: $IMAGE_TAG/" values.yaml
               git config user.email "$COMMIT_EMAIL"
               git config user.name "$COMMIT_NAME"
