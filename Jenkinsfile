@@ -52,7 +52,6 @@ spec:
               git clone https://${github_user}:${github_pat}@github.com/${github_user}/devops.git
               git checkout -b lesson-9
               cd devops/charts/django-app
-              sed -i "s|repository:.*|repository: $ECR_REGISTRY/$IMAGE_NAME|" values.yaml
               sed -i "s/tag: .*/tag: $IMAGE_TAG/" values.yaml
               git config user.email "$COMMIT_EMAIL"
               git config user.name "$COMMIT_NAME"
