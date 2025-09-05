@@ -21,8 +21,8 @@ spec:
     }
   }
   environment {
-    AWS_ACCOUNT_ID = credentials('aws-account-id')
-    ECR_REGISTRY   = "${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com"
+    
+    ECR_REGISTRY   = "7182-4008-6377.dkr.ecr.us-east-1.amazonaws.com"
     IMAGE_NAME   = "lesson-9-ecr"
     IMAGE_TAG    = "v1.0.${BUILD_NUMBER}"
     COMMIT_EMAIL = "jenkins@localhost"
