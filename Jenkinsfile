@@ -12,22 +12,21 @@ spec:
   containers:
     - name: kaniko
       image: gcr.io/kaniko-project/executor:v1.16.0-debug
-      imagePullPolicy: Always
+      imagePullPolicy: "Always"
       command:
-        - sleep
+        - "sleep"
       args:
-        - 99d
+        - "99d"
     - name: git-cli
-      image: alpine/git:latest
+      image: "alpine/git:latest"
       command:
-        - sleep
+        - "sleep"
       args:
-        - 99d
+        - "99d"
 """
     }
   }
   environment {
-    
     ECR_REGISTRY   = "7182-4008-6377.dkr.ecr.us-east-1.amazonaws.com"
     IMAGE_NAME   = "lesson-9-ecr"
     IMAGE_TAG    = "v1.0.${BUILD_NUMBER}"
@@ -38,15 +37,13 @@ spec:
     stage('Build & Push Docker Image') {
       steps {
         container('kaniko') {
-          sh '''
+          sh """
             /kaniko/executor \\
               --context `pwd`/django-app-src \\
               --dockerfile `pwd`/django-app-src/Dockerfile \\
               --destination=$ECR_REGISTRY/$IMAGE_NAME:$IMAGE_TAG \\
-              --cache=true \\
-              --insecure \\
-              --skip-tls-verify=true
-          '''
+              --cache=true
+          """
         }
       }
     }
