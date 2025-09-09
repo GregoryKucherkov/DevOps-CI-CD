@@ -80,7 +80,14 @@ resource "helm_release" "jenkins" {
   version          = "5.8.27"
   create_namespace = true
 
+  # values = [
+  #   file("${path.module}/values.yaml")
+  # ]
   values = [
-    file("${path.module}/values.yaml")
+    templatefile("${path.module}/values.yaml", {
+      github_user     = var.github_user
+      github_pat      = var.github_pat
+      github_repo_url = var.github_repo_url
+    })
   ]
 }
