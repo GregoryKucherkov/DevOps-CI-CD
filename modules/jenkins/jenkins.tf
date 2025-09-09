@@ -78,7 +78,7 @@ resource "helm_release" "jenkins" {
   repository       = "https://charts.jenkins.io"
   chart            = "jenkins"
   version          = "5.8.27"
-  create_namespace = false
+  create_namespace = true
 
   values = [
     file("${path.module}/values.yaml")

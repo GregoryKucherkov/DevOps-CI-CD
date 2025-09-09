@@ -46,7 +46,7 @@ spec:
     }
     stage('Update Chart Tag in Git') {
       steps {
-        container('git') {
+        container('git-cli') {
           withCredentials([usernamePassword(credentialsId: 'github-token', usernameVariable: ${github_user}, passwordVariable: ${github_pat})]) {
             sh '''
               git clone https://${github_user}:${github_pat}@github.com/${github_user}/devops.git

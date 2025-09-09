@@ -8,17 +8,17 @@ provider "aws" {
 
 
 
-resource "random_id" "suffix" {
-  byte_length = 4
-}
+# resource "random_id" "suffix" {
+#   byte_length = 4
+# }
 
 
 
-module "s3_backend" {
-    source      = "./modules/s3-backend"
-    bucket_name = "terraform-state-bucket-${random_id.suffix.hex}"
-    table_name  = "terraform-locks"
-}
+# module "s3_backend" {
+#     source      = "./modules/s3-backend"
+#     bucket_name = "terraform-state-bucket-${random_id.suffix.hex}"
+#     table_name  = "terraform-locks"
+# }
 
 
 # Call VPC
@@ -32,7 +32,7 @@ module "vpc" {
 }
 
 
-# Call ecr
+# Call ECR
 module "ecr" {
     source          = "./modules/ecr"
     ecr_name        = "lesson-9-ecr"
@@ -133,6 +133,7 @@ module "jenkins" {
     kubernetes = kubernetes
   }
 }
+
 
 module "argo_cd" {
   source        = "./modules/argo_cd"

@@ -39,3 +39,8 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 
 helm dependency update charts/django-app
 helm upgrade --install django-app charts/django-app
+
+for fresh start, first go:
+
+
+rm -rf .terraform/ terraform.tfstate* .terraform.lock.hcl

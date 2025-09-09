@@ -124,7 +124,7 @@ postgresql:
   primary:
     persistence:
       enabled: true
-      storageClass: ebs-sc-gp3
+      storageClass: ebs-sc
       size: 2Gi
 
 
@@ -133,6 +133,7 @@ config:
     POSTGRES_PORT: 5432
     POSTGRES_USER: django_user
     POSTGRES_DB: django_db
+    POSTGRES_PASSWORD: somepass
 
-postgresSecret:
-    name: django-app-postgres
+# postgresSecret:
+#     name: django-app-postgres

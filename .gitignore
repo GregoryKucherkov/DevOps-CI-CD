@@ -18,6 +18,7 @@ crash.log
 .terraformrc
 terraform.rc
 
+archive/
 
 # Helm
 *.tgz
