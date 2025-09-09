@@ -19,3 +19,9 @@ server:
 
 redis:
   enabled: true
+
+postgresql:
+  persistence:
+    enabled: true
+    # storageClass: gp3
+    size: 2Gi

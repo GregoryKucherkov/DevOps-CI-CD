@@ -124,7 +124,7 @@ postgresql:
   primary:
     persistence:
       enabled: true
-      storageClass: ebs-sc
+      storageClass: ebs-sc-gp3
       size: 2Gi
 
 

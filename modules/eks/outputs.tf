@@ -16,6 +16,7 @@ output "cluster_arn" {
 output "oidc_provider_arn" {
   description = "OIDC provider ARN for the EKS cluster"
   value       = module.eks.oidc_provider_arn
+  
 }
 
 output "oidc_provider_url" {
@@ -29,3 +30,4 @@ output "cluster_security_group_id" {
   description = "EKS cluster security group ID"
   value       = module.eks.cluster_security_group_id
 }
+

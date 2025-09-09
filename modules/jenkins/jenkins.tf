@@ -12,6 +12,7 @@ resource "kubernetes_storage_class_v1" "ebs_sc" {
     type = "gp3"
   }
 }
+
 resource "kubernetes_namespace" "jenkins" {
   metadata {
     name = "jenkins"
