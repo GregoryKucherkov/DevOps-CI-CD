@@ -17,6 +17,12 @@ spec:
         - sleep
       args:
         - 99d
+    - name: git-cli
+      image: alpine/git:latest
+      command:
+        - sleep
+      args:
+        - 99d
 """
     }
   }
@@ -39,7 +45,7 @@ spec:
               --destination=$ECR_REGISTRY/$IMAGE_NAME:$IMAGE_TAG \\
               --cache=true \\
               --insecure \\
-              --skip-tls-verify
+              --skip-tls-verify=true
           '''
         }
       }
@@ -47,15 +53,15 @@ spec:
     stage('Update Chart Tag in Git') {
       steps {
         container('git-cli') {
-          withCredentials([usernamePassword(credentialsId: 'github-token', usernameVariable: ${github_user}, passwordVariable: ${github_pat})]) {
+          withCredentials([usernamePassword(credentialsId: 'github-token', usernameVariable: 'GITHUB_USER', passwordVariable: 'GITHUB_PAT')]) {
             sh '''
-              git clone https://${github_user}:${github_pat}@github.com/${github_user}/devops.git
-              git checkout -b lesson-9
-              cd devops/charts/django-app
-              sed -i "s/tag: .*/tag: $IMAGE_TAG/" values.yaml
+              git clone https://${GITHUB_USER}:${GITHUB_PAT}@github.com/${GITHUB_USER}/devops.git
+              cd devops
               git config user.email "$COMMIT_EMAIL"
               git config user.name "$COMMIT_NAME"
-              git add values.yaml
+              git checkout lesson-9
+              sed -i "s|tag: .*\$|tag: \\"$IMAGE_TAG\\"|" charts/django-app/values.yaml
+              git add charts/django-app/values.yaml
               git commit -m "Update image tag to $IMAGE_TAG"
               git push origin lesson-9
             '''
