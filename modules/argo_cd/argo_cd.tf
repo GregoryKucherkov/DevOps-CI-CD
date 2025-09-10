@@ -20,7 +20,7 @@ resource "helm_release" "argo_apps" {
   namespace        = var.namespace
   create_namespace = false
   values = [
-    file("${path.module}/values.yaml")
+    file("${path.module}/charts/values.yaml")
   ]
   depends_on = [helm_release.argo_cd]
 }
