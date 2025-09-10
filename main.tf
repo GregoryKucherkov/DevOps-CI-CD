@@ -99,6 +99,7 @@ data "aws_eks_cluster_auth" "eks" {
   depends_on = [module.eks]
 }
 
+# if need import oidc_provider_arn
 # data "aws_iam_openid_connect_provider" "oidc" {
 #   url = module.eks.oidc_provider_url
 # }
@@ -119,12 +120,9 @@ provider "helm" {
 }
 
 
-
-
 data "aws_caller_identity" "current" {}
 
 
-# problem oidc_provider_arn = null
 module "jenkins" {
   source            = "./modules/jenkins"
   cluster_name      = module.eks.cluster_name

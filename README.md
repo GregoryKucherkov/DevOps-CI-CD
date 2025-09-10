@@ -24,6 +24,9 @@ terraform init
 
 Now you have terraform state in remotely stored in s3 bucket.
 
+!notice make sure in terraform output you have oidc_provider_arn
+if not, try creating IF by steps
+
 # Step 2
 
 Update kubectl credentials:
@@ -36,23 +39,12 @@ To lists all services in the namespace you specify:
 to get password for argocd:
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 
+## *Helm charts
 
+Charts are there, but if needed use commands:
 helm dependency update charts/django-app
 helm upgrade --install django-app charts/django-app
 
-
-
-
-
-## Extra
-for fresh start, first go:
-rm -rf .terraform/ terraform.tfstate* .terraform.lock.hcl
-
-init in to step
-terraform apply -target=module.eks
-
-to import:
-import terraform import module.jenkins.aws_iam_role.jenkins_kaniko_role hw_9_eks-jenkins-kaniko-role 
 
 
 ## Jenkins:
