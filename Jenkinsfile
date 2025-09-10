@@ -46,20 +46,6 @@ spec:
           """
         }
       }
-    }
-    stage('Debug Kaniko') {
-      steps {
-        container('kaniko') {
-          sh '''
-            echo "Checking env vars:"
-            env | grep AWS
-            echo "Checking metadata endpoint:"
-            curl -v http://169.254.169.254/latest/meta-data/iam/security-credentials/ || echo "Metadata fetch failed"
-          '''
-        }
-      }
-    }
-  
     stage('Update Chart Tag in Git') {
       steps {
         container('git-cli') {
@@ -69,11 +55,12 @@ spec:
               cd DevOps-CI-CD
               git config user.email "$COMMIT_EMAIL"
               git config user.name "$COMMIT_NAME"
-              git checkout lesson-9
+              git checkout main
+              sed -i "s|    repository: .*|    repository: \\"${ECR_REGISTRY}/${IMAGE_NAME}\\"|" charts/django-app/values.yaml
               sed -i "s|tag: .*\$|tag: \\"$IMAGE_TAG\\"|" charts/django-app/values.yaml
               git add charts/django-app/values.yaml
               git commit -m "Update image tag to $IMAGE_TAG"
-              git push origin lesson-9
+              git push origin main
             '''
           }
         }
