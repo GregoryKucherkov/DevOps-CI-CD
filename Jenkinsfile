@@ -46,6 +46,7 @@ spec:
           """
         }
       }
+    }
     stage('Update Chart Tag in Git') {
       steps {
         container('git-cli') {
@@ -55,12 +56,12 @@ spec:
               cd DevOps-CI-CD
               git config user.email "$COMMIT_EMAIL"
               git config user.name "$COMMIT_NAME"
-              git checkout main
+              git checkout lesson-9
               sed -i "s|    repository: .*|    repository: \\"${ECR_REGISTRY}/${IMAGE_NAME}\\"|" charts/django-app/values.yaml
               sed -i "s|tag: .*\$|tag: \\"$IMAGE_TAG\\"|" charts/django-app/values.yaml
               git add charts/django-app/values.yaml
               git commit -m "Update image tag to $IMAGE_TAG"
-              git push origin main
+              git push origin lesson-9
             '''
           }
         }

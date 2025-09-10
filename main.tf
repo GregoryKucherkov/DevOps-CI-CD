@@ -135,7 +135,8 @@ module "jenkins" {
   github_user       = var.github_user
   github_repo_url   = var.github_repo_url
 
-  jenkins_sa_name   = kubernetes_service_account.jenkins_sa.metadata.0.name
+  # jenkins_sa_name   = kubernetes_service_account.jenkins_sa.metadata.0.name
+  jenkins_sa_name   = module.jenkins.jenkins_sa_name
 
   depends_on        = [module.eks]
 
