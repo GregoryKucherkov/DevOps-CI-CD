@@ -17,14 +17,6 @@ spec:
         - "sleep"
       args:
         - "99d"
-      env:
-        - name: AWS_REGION
-          value: us-east-1
-        - name: AWS_ROLE_ARN
-          value: arn:aws:iam::718240086377:role/hw_9_eks-jenkins-kaniko-role
-        - name: AWS_WEB_IDENTITY_TOKEN_FILE
-          value: /var/run/secrets/eks.amazonaws.com/serviceaccount/token
-
     - name: git-cli
       image: "alpine/git:latest"
       command:
@@ -35,35 +27,13 @@ spec:
     }
   }
   environment {
-    ECR_REGISTRY   = "7182-4008-6377.dkr.ecr.us-east-1.amazonaws.com"
+    ECR_REGISTRY   = "718240086377.dkr.ecr.us-east-1.amazonaws.com"
     IMAGE_NAME   = "lesson-9-ecr"
     IMAGE_TAG    = "v1.0.${BUILD_NUMBER}"
     COMMIT_EMAIL = "jenkins@localhost"
     COMMIT_NAME  = "jenkins"
   }
   stages {
-
-    stage('Check AWS / IRSA') {
-      steps {
-        container('kaniko') {
-          sh '''
-            echo "===== ENV ====="
-            env | grep AWS
-            echo "===== ROLE ====="
-            if [ -f "$AWS_WEB_IDENTITY_TOKEN_FILE" ]; then
-              echo "Web identity token exists"
-              cat $AWS_WEB_IDENTITY_TOKEN_FILE | head -5
-            else
-              echo "No web identity token file"
-            fi
-            echo "===== STS CALL ====="
-            aws sts get-caller-identity || true
-          '''
-        }
-      }
-    }
-
-
     stage('Build & Push Docker Image') {
       steps {
         container('kaniko') {
@@ -77,13 +47,26 @@ spec:
         }
       }
     }
+    stage('Debug Kaniko') {
+      steps {
+        container('kaniko') {
+          sh '''
+            echo "Checking env vars:"
+            env | grep AWS
+            echo "Checking metadata endpoint:"
+            curl -v http://169.254.169.254/latest/meta-data/iam/security-credentials/ || echo "Metadata fetch failed"
+          '''
+        }
+      }
+    }
+  
     stage('Update Chart Tag in Git') {
       steps {
         container('git-cli') {
           withCredentials([usernamePassword(credentialsId: 'github-token', usernameVariable: 'GITHUB_USER', passwordVariable: 'GITHUB_PAT')]) {
             sh '''
-              git clone https://${GITHUB_USER}:${GITHUB_PAT}@github.com/${GITHUB_USER}/devops.git
-              cd devops
+              git clone https://${GITHUB_USER}:${GITHUB_PAT}@github.com/${GITHUB_USER}/DevOps-CI-CD.git
+              cd DevOps-CI-CD
               git config user.email "$COMMIT_EMAIL"
               git config user.name "$COMMIT_NAME"
               git checkout lesson-9
