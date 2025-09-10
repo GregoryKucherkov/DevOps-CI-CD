@@ -28,6 +28,7 @@ resource "kubernetes_service_account" "jenkins_sa" {
   }
   depends_on = [kubernetes_namespace.jenkins]
 }
+
 resource "aws_iam_role" "jenkins_kaniko_role" {
   name = "${var.cluster_name}-jenkins-kaniko-role"
   assume_role_policy = jsonencode({
@@ -89,6 +90,14 @@ resource "helm_release" "jenkins" {
       github_user     = var.github_user
       github_pat      = var.github_pat
       github_repo_url = var.github_repo_url
+
+      jenkins_sa_name = var.jenkins_sa_name
     })
   ]
+
+
+  # depends_on = [
+  #   aws_iam_role.jenkins_kaniko_role,
+  #   kubernetes_service_account.jenkins_sa
+  # ]
 }

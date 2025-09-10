@@ -33,7 +33,8 @@ controller:
     - docker-workflow:latest
     - job-dsl:latest
   serviceAccount:
-     name: jenkins-sa
+    #  name: jenkins-sa
+     name: ${jenkins_sa_name}
      create: false
   JCasC:
     configScripts:

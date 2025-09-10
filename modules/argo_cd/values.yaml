@@ -23,5 +23,5 @@ redis:
 postgresql:
   persistence:
     enabled: true
-    # storageClass: gp3
+    # storageClass: ebs-sc
     size: 2Gi

@@ -37,3 +37,8 @@ variable "github_repo_url" {
   description = "GitHub repository URL"
   type        = string
 }
+
+variable "jenkins_sa_name" {
+  description = "The name of the Jenkins Service Account."
+  type        = string
+}

@@ -99,9 +99,9 @@ data "aws_eks_cluster_auth" "eks" {
   depends_on = [module.eks]
 }
 
-data "aws_iam_openid_connect_provider" "oidc" {
-  url = module.eks.oidc_provider_url
-}
+# data "aws_iam_openid_connect_provider" "oidc" {
+#   url = module.eks.oidc_provider_url
+# }
 
 provider "kubernetes" {
   host                   = data.aws_eks_cluster.eks.endpoint
@@ -128,12 +128,15 @@ data "aws_caller_identity" "current" {}
 module "jenkins" {
   source            = "./modules/jenkins"
   cluster_name      = module.eks.cluster_name
-  # oidc_provider_arn = module.eks.oidc_provider_arn
-  oidc_provider_arn = data.aws_iam_openid_connect_provider.oidc.arn
+  oidc_provider_arn = module.eks.oidc_provider_arn
+  # oidc_provider_arn = data.aws_iam_openid_connect_provider.oidc.arn
   oidc_provider_url = module.eks.oidc_provider_url
   github_pat        = var.github_pat
   github_user       = var.github_user
   github_repo_url   = var.github_repo_url
+
+  jenkins_sa_name   = kubernetes_service_account.jenkins_sa.metadata.0.name
+
   depends_on        = [module.eks]
 
   providers         = {

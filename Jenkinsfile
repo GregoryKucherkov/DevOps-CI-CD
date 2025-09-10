@@ -17,6 +17,14 @@ spec:
         - "sleep"
       args:
         - "99d"
+      env:
+        - name: AWS_REGION
+          value: us-east-1
+        - name: AWS_ROLE_ARN
+          value: arn:aws:iam::718240086377:role/hw_9_eks-jenkins-kaniko-role
+        - name: AWS_WEB_IDENTITY_TOKEN_FILE
+          value: /var/run/secrets/eks.amazonaws.com/serviceaccount/token
+
     - name: git-cli
       image: "alpine/git:latest"
       command:
@@ -34,6 +42,28 @@ spec:
     COMMIT_NAME  = "jenkins"
   }
   stages {
+
+    stage('Check AWS / IRSA') {
+      steps {
+        container('kaniko') {
+          sh '''
+            echo "===== ENV ====="
+            env | grep AWS
+            echo "===== ROLE ====="
+            if [ -f "$AWS_WEB_IDENTITY_TOKEN_FILE" ]; then
+              echo "Web identity token exists"
+              cat $AWS_WEB_IDENTITY_TOKEN_FILE | head -5
+            else
+              echo "No web identity token file"
+            fi
+            echo "===== STS CALL ====="
+            aws sts get-caller-identity || true
+          '''
+        }
+      }
+    }
+
+
     stage('Build & Push Docker Image') {
       steps {
         container('kaniko') {

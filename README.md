@@ -33,14 +33,28 @@ To lists all services in the namespace you specify:
  kubectl get svc -n <your-namecpace>
 
 
-to get password:
+to get password for argocd:
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 
 
 helm dependency update charts/django-app
 helm upgrade --install django-app charts/django-app
 
+
+
+
+
+## Extra
 for fresh start, first go:
-
-
 rm -rf .terraform/ terraform.tfstate* .terraform.lock.hcl
+
+init in to step
+terraform apply -target=module.eks
+
+to import:
+import terraform import module.jenkins.aws_iam_role.jenkins_kaniko_role hw_9_eks-jenkins-kaniko-role 
+
+
+## Jenkins:
+ first got to UI, approve seed job
+ then build now -> it will create goit-django-docker 
