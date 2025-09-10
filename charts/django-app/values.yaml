@@ -136,4 +136,4 @@ config:
     POSTGRES_PASSWORD: somepass
 
 postgresSecret:
-    name: django-app-postgres
+    name: django-app-postgresql
