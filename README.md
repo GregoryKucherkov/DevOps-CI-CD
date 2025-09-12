@@ -70,3 +70,10 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
     git add .
     git commit -m "Deploying/Updating Django app"
     git push
+
+
+**NOTICE**
+For a moment of startting, there is no ecr ready, and Jenkins job hasn't been done, so after terraform finishes:
+1. run Jenkins job(instructions on the above)
+2. edit charts/django-app/values.yaml/image:repository: "aws_ecr" with image
+3. push updated code to repo
