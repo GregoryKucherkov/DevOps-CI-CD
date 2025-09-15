@@ -54,17 +54,41 @@ if not, try creating IF by steps
 Update kubectl credentials:
 aws eks update-kubeconfig --name <cluster-name> --region <region>
 
+<<<<<<< HEAD
 To lists all services in the namespace you specify:
  kubectl get svc -n <your-namecpace>
 
+=======
+To list all namespaces:
+kubectl get ns
+
+To lists all services in the namespace you specify:
+kubectl get svc -n <your-namecpace>
+
+For example to get url for argocd(as it is on loadbalancer, and accessible by a link) you go:
+kubectl get svc -n argocd
+
+Login for argocd is:
+admin
+>>>>>>> 7f04e54 (final)
 
 to get password for argocd:
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 
+<<<<<<< HEAD
 
 ## Jenkins:
  first got to UI, approve seed job
  then build now -> it will create goit-django-docker 
+=======
+Same for Jenkins, except it credentials in jenkins/values.yaml
+
+## Jenkins:
+ first got to UI, then approve seed job;
+ To do so, go to manage Jenkins, scroll down to Script Approval, and aprrove it
+ then build now -> it will create goit-django-docker 
+ click Build now for goit-django-docker 
+>>>>>>> 7f04e54 (final)
 
 **Deploy applications via GitOps:**
     To deploy or update applications like `django-app`, modify the Helm chart files in `charts/django-app/` and push your changes to the Git repository. Argo CD will automatically sync and deploy them to the cluster.
