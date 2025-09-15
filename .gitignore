@@ -1,0 +1,61 @@
+# Terraform
+.terraform.lock.hcl
+
+
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfvars.json
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+crash.log
+*.plan
+
+.terraform.tfvars
+
+*.auto.tfvars
+*.auto.tfvars.json
+
+
+# Local environment / CLI configs
+.terraformrc
+terraform.rc
+
+archive/
+
+# Helm
+*.tgz
+*.local.values.yaml
+helm-debug/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+.env
+.env.*
+
+# IDEs / Editors
+.vscode/
+.idea/
+*.code-workspace
+.project
+*.tmproj
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Backup files
+*.bak
+*.swp
+*~
+
+

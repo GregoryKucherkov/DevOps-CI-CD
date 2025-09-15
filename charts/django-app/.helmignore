@@ -1,0 +1,41 @@
+# Patterns to ignore when building packages.
+# This supports shell glob matching, relative path matching, and
+# negation (prefixed with !). Only one pattern per line.
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Common VCS dirs
+.git/
+.gitignore
+.hg/
+.hgignore
+.svn/
+
+# Backup files
+*.swp
+*.bak
+*.tmp
+*.orig
+*~
+
+# IDEs / Editors
+.vscode/
+.idea/
+*.code-workspace
+.project
+*.tmproj
+
+# Local environment / secrets
+.env
+values.local.yaml
+
+venv/
+tests/
+
+__pycache__/
+
+# Optional Docker / build files not needed in chart package
+Dockerfile
+.dockerignore
