@@ -7,11 +7,11 @@ replicaCount: 1
 
 # This sets the container image more information can be found here: https://kubernetes.io/docs/concepts/containers/images/
 image:
-    repository: "718240086377.dkr.ecr.us-east-1.amazonaws.com/final-ecr"  # <-- enter ecr aws repository with image
+    repository: "718240086377.dkr.ecr.us-east-1.amazonaws.com/final-ecr"
     # This sets the pull policy for images.
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-    tag: "v1.0.19"
+    tag: "v1.0.4"
 
 # This is for the secrets for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
 imagePullSecrets:
@@ -133,7 +133,6 @@ config:
     POSTGRES_PORT: 5432
     POSTGRES_USER: django_user
     POSTGRES_DB: django_db
-    POSTGRES_PASSWORD: somepass
 
 postgresSecret:
     name: django-app-postgresql

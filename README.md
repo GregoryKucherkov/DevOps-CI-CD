@@ -46,7 +46,7 @@ terraform init
 Now you have terraform state in remotely stored in s3 bucket.
 
 !notice make sure in terraform output you have oidc_provider_arn
-if not, try creating IF by steps
+if not, try creating Infrastructure by steps(first module eks, then else)
 
 
 # Step 2
@@ -54,11 +54,7 @@ if not, try creating IF by steps
 Update kubectl credentials:
 aws eks update-kubeconfig --name <cluster-name> --region <region>
 
-<<<<<<< HEAD
-To lists all services in the namespace you specify:
- kubectl get svc -n <your-namecpace>
 
-=======
 To list all namespaces:
 kubectl get ns
 
@@ -70,25 +66,19 @@ kubectl get svc -n argocd
 
 Login for argocd is:
 admin
->>>>>>> 7f04e54 (final)
 
 to get password for argocd:
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 
-<<<<<<< HEAD
-
-## Jenkins:
- first got to UI, approve seed job
- then build now -> it will create goit-django-docker 
-=======
 Same for Jenkins, except it credentials in jenkins/values.yaml
+
 
 ## Jenkins:
  first got to UI, then approve seed job;
  To do so, go to manage Jenkins, scroll down to Script Approval, and aprrove it
  then build now -> it will create goit-django-docker 
  click Build now for goit-django-docker 
->>>>>>> 7f04e54 (final)
+
 
 **Deploy applications via GitOps:**
     To deploy or update applications like `django-app`, modify the Helm chart files in `charts/django-app/` and push your changes to the Git repository. Argo CD will automatically sync and deploy them to the cluster.
@@ -103,3 +93,24 @@ For a moment of startting, there is no ecr ready, and Jenkins job hasn't been do
 1. run Jenkins job(instructions on the above)
 2. edit charts/django-app/values.yaml/image:repository: "aws_ecr" with image
 3. push updated code to repo
+
+
+Monitoring:
+to see all services use:
+kubectl get svc -n monitoring
+
+As monitoring here is using ClusterIp to get access you need to port-forward
+
+For Grafana user: admin
+pass:
+kubectl get secret kube-prometheus-stack-grafana -n monitoring -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+
+Port-forward:
+kubectl port-forward svc/kube-prometheus-stack-grafana -n monitoring 3000:80
+
+For prometheus use:
+kubectl port-forward svc/kube-prometheus-stack-prometheus -n monitoring 9090:9090
+go to -> http://localhost:9090
+
+
+

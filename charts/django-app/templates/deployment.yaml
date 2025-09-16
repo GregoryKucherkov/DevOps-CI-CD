@@ -36,7 +36,12 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ .Release.Name }}-config
-            - secretRef:
-                name: {{ .Values.postgresSecret.name }}
+          
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.postgresSecret.name }}
+                  key: postgres-password
   
               
