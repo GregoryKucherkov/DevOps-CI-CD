@@ -35,7 +35,7 @@ module "eks" {
     eks_managed_node_group_defaults = {
             ami_type       = "AL2023_x86_64_STANDARD"
             min_size       = 1
-            max_size       = 6
+            max_size       = 4
             desired_size   = 2
     }
 

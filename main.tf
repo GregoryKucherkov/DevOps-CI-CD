@@ -152,47 +152,47 @@ module "argo_cd" {
 
 # Call RDS
 
-module "rds" {
-  source = "./modules/rds"
+# module "rds" {
+#   source = "./modules/rds"
 
-  name                       = var.rds_name
-  use_aurora                 = var.use_aurora
-  aurora_instance_count      = 2
+#   name                       = var.rds_name
+#   use_aurora                 = var.use_aurora
+#   aurora_instance_count      = 2
 
-  # --- Aurora-only ---
-  engine_cluster             = "aurora-postgresql"
-  engine_version_cluster     = "15.3"
-  parameter_group_family_aurora = "aurora-postgresql15"
+#   # --- Aurora-only ---
+#   engine_cluster             = "aurora-postgresql"
+#   engine_version_cluster     = "15.3"
+#   parameter_group_family_aurora = "aurora-postgresql15"
 
-  # --- RDS-only ---
-  engine                     = "postgres"
-  engine_version             = "17.2"
-  parameter_group_family_rds = "postgres17"
+#   # --- RDS-only ---
+#   engine                     = "postgres"
+#   engine_version             = "17.2"
+#   parameter_group_family_rds = "postgres17"
 
-   # Common
-  instance_class             = "db.t3.medium"
-  allocated_storage          = 20
-  db_name                    = "myapp"
-  username                   = "postgres"
-  password                   = "admin123AWS23"
+#    # Common
+#   instance_class             = "db.t3.medium"
+#   allocated_storage          = 20
+#   db_name                    = "myapp"
+#   username                   = "postgres"
+#   password                   = "admin123AWS23"
 
-  subnet_private_ids         = module.vpc.private_subnets
-  subnet_public_ids          = module.vpc.public_subnets
-  publicly_accessible        = true
-  vpc_id                     = module.vpc.vpc_id
-  multi_az                   = true
-  backup_retention_period    = 7
+#   subnet_private_ids         = module.vpc.private_subnets
+#   subnet_public_ids          = module.vpc.public_subnets
+#   publicly_accessible        = true
+#   vpc_id                     = module.vpc.vpc_id
+#   multi_az                   = true
+#   backup_retention_period    = 7
 
-  parameters = {
-    max_connections              = "200"
-    log_min_duration_statement   = "500"
-  }
+#   parameters = {
+#     max_connections              = "200"
+#     log_min_duration_statement   = "500"
+#   }
 
-  tags = {
-    Environment = "dev"
-    Project     = "final"
-  }
-}
+#   tags = {
+#     Environment = "dev"
+#     Project     = "final"
+#   }
+# }
 
 
 # Call monitoring module

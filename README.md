@@ -75,6 +75,10 @@ Same for Jenkins, except it credentials in jenkins/values.yaml
 
 ## Jenkins:
  first got to UI, then approve seed job;
+ kubectl get svc -n jenkins 
+
+ you will see url(as it is on loadbalancer)
+ 
  To do so, go to manage Jenkins, scroll down to Script Approval, and aprrove it
  then build now -> it will create goit-django-docker 
  click Build now for goit-django-docker 

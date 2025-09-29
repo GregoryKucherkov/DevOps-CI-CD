@@ -43,5 +43,6 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.postgresSecret.name }}
                   key: postgres-password
+                  # key: {{ .Values.postgresSecret.key }}
   
               

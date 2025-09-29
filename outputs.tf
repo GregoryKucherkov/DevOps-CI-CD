@@ -63,33 +63,33 @@ output "argocd_admin_password" {
 
 #-------------RDS-----------------
 
-output "rds_endpoint" {
-  description = "The endpoint of the RDS/Aurora database"
-  value       = module.rds.endpoint
-}
+# output "rds_endpoint" {
+#   description = "The endpoint of the RDS/Aurora database"
+#   value       = module.rds.endpoint
+# }
 
-output "rds_port" {
-  description = "The port of the RDS/Aurora database"
-  value       = module.rds.port
-}
+# output "rds_port" {
+#   description = "The port of the RDS/Aurora database"
+#   value       = module.rds.port
+# }
 
-output "rds_db_name" {
-  description = "The initial database name"
-  value       = module.rds.db_name
-}
+# output "rds_db_name" {
+#   description = "The initial database name"
+#   value       = module.rds.db_name
+# }
 
-output "rds_id" {
-  description = "The ID of the RDS instance."
-  value       = module.rds.id
-}
+# output "rds_id" {
+#   description = "The ID of the RDS instance."
+#   value       = module.rds.id
+# }
 
-output "rds_arn" {
-  description = "The ARN of the RDS instance."
-  value       = module.rds.arn
-}
+# output "rds_arn" {
+#   description = "The ARN of the RDS instance."
+#   value       = module.rds.arn
+# }
 
 
-output "db_master_username" {
-  description = "Master DB username"
-  value       = module.rds.username
-}
+# output "db_master_username" {
+#   description = "Master DB username"
+#   value       = module.rds.username
+# }

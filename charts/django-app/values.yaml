@@ -11,7 +11,7 @@ image:
     # This sets the pull policy for images.
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-    tag: "v1.0.4"
+    tag: "v1.0.1"
 
 # This is for the secrets for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
 imagePullSecrets:
@@ -121,6 +121,19 @@ affinity: {}
 #     encrypted: "false"
 
 postgresql:
+  image:
+    repository: bitnamilegacy/postgresql
+    tag: "15"
+    pullPolicy: IfNotPresent
+
+  auth:
+    username: django_user
+    password: "LKprfRi26R"
+    database: django_db
+    # existingSecret: django-app-postgresql
+#   persistence:
+#     enabled: true
+
   primary:
     persistence:
       enabled: true
@@ -136,3 +149,4 @@ config:
 
 postgresSecret:
     name: django-app-postgresql
+    key: postgres-password
